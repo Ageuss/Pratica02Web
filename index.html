@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<!--Desenvolvido por Ageu e Alessandro-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/home.css">
+
+    <script src="scripts/bootstrap/jquery-3.5.1.slim.min.js"></script>
+    <script src="scripts/bootstrap/popper.min.js"></script>
+    <script src="scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="scripts/vue.js"></script>
+    <script src="scripts/home.js"></script>
+</head>
+
+<body class="fundo">
+    <div id="app">
+        <div class="container">
+            <form>
+                <h4>Faça seu anúncio aqui!</h4>
+                <div class="form-group">
+                    <label>Título: <input type=text class="form-control" id="titulo" v-model="titulo"></label>
+                </div>
+                <div class="form-group">
+                    <label>Descrição: <input type=text class="form-control" id="descricao" v-model="descricao"></label>
+                </div>
+                <div class="form-group">
+                    <label>Quartos: <input type="number" class="form-control" id="quartos" v-model="quartos"></label>
+                </div>
+                <div class="form-group">
+                    <label>Vagas de garagem: <input type="number" class="form-control" id="vagas"
+                            v-model="vagas"></label>
+                </div>
+                <div class="form-group">
+                    <label>Área do terreno: <input type="number" class="form-control" id="areaDoTerreno"
+                            v-model="areaDoTerreno"></label>
+                </div>
+                <div class="form-group">
+                    <label>Área construída <input type="number" class="form-control" id="areaConstruida"
+                            v-model="areaConstruida"></label>
+                </div>
+                <div class="form-group">
+                    <label>Localidade: <input type="text" class="form-control" id="localidade"
+                            v-model="localidade"></label>
+                </div>
+                <div class="form-group">
+                    <label>Preço: <input type="number" class="form-control" id="preco" v-model="preco"></label>
+                </div>
+                <div class="form-group">
+                    <label>Imagem: <h1>(insira uma url)</h1> <input type="text" class="form-control" id="imagem" v-model="imagem"></label>
+                </div>
+                <div class="submit">
+                    <button type="button" class="btn btn-danger" onclick="limparCampos()">Limpar</button>
+                    <button type="button" class="btn btn-success" v-on:click="imprimirTabela()">Adicionar</button>
+                </div>
+
+            </form>
+            <div id="imagem-renderiza">
+                <h3>Imagem selecionada:</h3>
+                <img v-bind:src="imagem" style="max-width: 200px; max-height: 200px;">
+            </div>
+        </div>
+
+        <div class="tabela">
+            <table class="table table-bordered" id="tabela">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>Quartos</th>
+                        <th>Vagas de garagem</th>
+                        <th>Área do terreno</th>
+                        <th>Área construída</th>
+                        <th>Localidade</th>
+                        <th>Preço</th>
+                        <th>Imagem</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <script>
+        var vn = new Vue({
+            el: "#app",
+            data: {
+                titulo: "",
+                descricao: "",
+                quartos: "",
+                vagas: "",
+                areaDoTerreno: "",
+                areaConstruida: "",
+                localidade: "",
+                preco: "",
+                imagem: "",
+            },
+            methods: {
+                imprimirTabela() {
+                    if (validaCampos() == true) {
+                        tabela = document.getElementById("tabela");
+                        var titulo = this.titulo;
+                        var descricao = this.descricao;
+                        var quartos = this.quartos;
+                        var vagas = this.vagas;
+                        var areaDoTerreno = this.areaDoTerreno;
+                        var areaConstruida = this.areaConstruida;
+                        var localidade = this.localidade;
+                        var preco = this.preco;
+                        var imagem = this.imagem;
+                        var linha = tabela.insertRow(-1);
+
+                        var coluna1 = linha.insertCell(0);
+                        var coluna2 = linha.insertCell(1);
+                        var coluna3 = linha.insertCell(2);
+                        var coluna4 = linha.insertCell(3);
+                        var coluna5 = linha.insertCell(4);
+                        var coluna6 = linha.insertCell(5);
+                        var coluna7 = linha.insertCell(6);
+                        var coluna8 = linha.insertCell(7);
+                        var coluna9 = linha.insertCell(8);
+
+                        coluna1.innerHTML = titulo;
+                        coluna2.innerHTML = descricao;
+                        coluna3.innerHTML = quartos;
+                        coluna4.innerHTML = vagas;
+                        coluna5.innerHTML = areaDoTerreno;
+                        coluna6.innerHTML = areaConstruida;
+                        coluna7.innerHTML = localidade;
+                        coluna8.innerHTML = preco;
+                        coluna9.innerHTML = imagem;
+                        salvarNoLocalStorage();
+                        limparCampos();
+                    } else {
+                        alert("Por favor, preencha todos os campos!");
+                    }
+                }
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>
